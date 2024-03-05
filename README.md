@@ -42,7 +42,7 @@ We used a model trained on 9000 images of tennis matches from the Roboflow websi
 Due to the limited video resolution, we cannot achieve accurate recognition for every frame. Therefore, we preserve the two-dimensional point arrays containing noise points and filter them out during reconstruction.
 ### 3. **Reconstruction**  
 We first need to align the time series of the videos, and then use `cv2.triangulatePoints` to calculate three-dimensional coordinates. However, due to the presence of noise points, we cannot reconstruct every point accurately, and these noise points will also affect our subsequent curve fitting. Therefore, the challenge here lies in how to remove noise points and how to fit curves accurately.  
-**Original Image:**
+**Original Image:**  
 ![real.png-106.8kB][9]  
 We first use the mean and variance of each point's neighborhood to determine whether the point is an outlier.
 **Image after removing outliers:**
