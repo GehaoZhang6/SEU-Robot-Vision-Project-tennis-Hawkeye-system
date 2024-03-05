@@ -1,0 +1,23 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="10">
+            <item index="0" class="java.lang.String" itemvalue="open3d-python" />
+            <item index="1" class="java.lang.String" itemvalue="opencv-contrib-python" />
+            <item index="2" class="java.lang.String" itemvalue="pypng" />
+            <item index="3" class="java.lang.String" itemvalue="pykdtree" />
+            <item index="4" class="java.lang.String" itemvalue="pyrealsense2" />
+            <item index="5" class="java.lang.String" itemvalue="scikit-learn" />
+            <item index="6" class="java.lang.String" itemvalue="pylint" />
+            <item index="7" class="java.lang.String" itemvalue="retrying" />
+            <item index="8" class="java.lang.String" itemvalue="rope" />
+            <item index="9" class="java.lang.String" itemvalue="trimesh" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
