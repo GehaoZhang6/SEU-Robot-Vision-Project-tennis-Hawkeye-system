@@ -55,7 +55,7 @@ But after reconstruction, we have obtained a new perspective, which means we can
 Now we can fit each segment of the curve.
 The next issue is the discontinuity between each fitted curve segment. So, we identify each point of impact and ground contact separately, assign them individual losses, and use `scipy.optimize.minimize` for curve fitting.
 **Bounces in image(red points):**  
-![b.png-87.4kB][13]
+![b.png-87.4kB][13]  
 **Loss function:**  
 ```
 def loss_func(params, x, y, start_point, end_point):
