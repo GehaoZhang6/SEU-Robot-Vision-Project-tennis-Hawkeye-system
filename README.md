@@ -1,4 +1,4 @@
-﻿#The project is based on the Robot Vision course at **Southeast University(SEU)** in 2023.#
+﻿# The project is based on the Robot Vision course at **Southeast University(SEU)** in 2023. #
 
 ## **Introduction**
 The goal of the project is to develop a tennis Hawkeye system based on videos captured by four cameras on the court to determine whether the ball is out of bounds.
