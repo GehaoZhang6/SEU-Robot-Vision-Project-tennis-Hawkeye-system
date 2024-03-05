@@ -21,11 +21,11 @@ I wonder why this is happening. Let's delve into its underlying causes
 The foundation of obtaining the camera matrix lies in solving the least squares solution from three-dimensional to two-dimensional mapping.In summary, we need to obtain the matrix with 12 parameters **P**.  
 So we can create a zero matrix M with a size of 3*points rows and 12+points columns. Then, for each three-dimensional point, assign its coordinates to different rows and columns of matrix M. Finally, assign the negative values of the two-dimensional point coordinates to specific columns of matrix M. Matrix M is used for the subsequent calculation of the camera projection matrix.
 Let's see how it turns out:
-![svd.png-66.1kB][5]
+![svd.png-66.1kB][5]  
 This result looks much better. However, there is still an issue. Different methods of matrix normalization yield different solutions. We need to try multiple normalization techniques to achieve a better result. Even though the current image result looks fine, there are still some deviations numerically. Can we further improve it?
 - **Neural networks for solving camera matrix.** 
 We know that the purpose of training a neural network is essentially to find the weights for each parameter. Therefore, we can construct a single-layer neural network to find our least squares solution, while ensuring to deactivate the bias term during training.
-![court_linear_regression.png-59.9kB][6]
+![court_linear_regression.png-59.9kB][6]  
 This result achieves the current best performance, with only very small numerical errors.
 <span style="color:red">**We cannot simply select points on a two-dimensional plane, as the least squares solution does not impose constraints on the three direction vectors of the extrinsic parameters to be mutually orthogonal. Therefore, the points we select must ensure that they lie within a three-dimensional plane.**</span>
 
@@ -34,25 +34,24 @@ This result achieves the current best performance, with only very small numerica
 Firstly, we extract several images of tennis balls from the photo and adjust their size, brightness, and contrast to ensure diversity of descriptors. Then, we place them in the "foreground" folder. Next, we place the pure background images in the "background" folder. These two folders are used for extracting descriptors of foreground and background using SIFT.
 Secondly, we use a background subtractor to obtain the foreground, apply median filtering for refinement, and finally utilize SIFT to extract descriptors from the images and find matching pixel points corresponding to tennis balls.At the same time, we incorporate the descriptors of the newly detected tennis balls to ensure the continuity of detection.
 However, due to the inevitable occurrence of mistakenly recognizing the background as tennis balls and incorporating them into the descriptors, the detection algorithm may not perform with sufficient precision, but it can still be used.
-![sift.png-543kB][7]
+![sift.png-543kB][7]  
 **I also added a Kalman filter in the code, but did not call it because the effect was not satisfactory.**
 - **YOLO**  
 We used a model trained on 9000 images of tennis matches from the Roboflow website to detect tennis balls, and the effectiveness has significantly improved.
-![yolo.png-265.8kB][8]
-
+![yolo.png-265.8kB][8]  
 Due to the limited video resolution, we cannot achieve accurate recognition for every frame. Therefore, we preserve the two-dimensional point arrays containing noise points and filter them out during reconstruction.
 ### 3. **Reconstruction**  
 We first need to align the time series of the videos, and then use `cv2.triangulatePoints` to calculate three-dimensional coordinates. However, due to the presence of noise points, we cannot reconstruct every point accurately, and these noise points will also affect our subsequent curve fitting. Therefore, the challenge here lies in how to remove noise points and how to fit curves accurately.
 **Original Image:**
-![real.png-106.8kB][9]
+![real.png-106.8kB][9]  
 We first use the mean and variance of each point's neighborhood to determine whether the point is an outlier.
 **Image after removing outliers:**
-![original.png-95.3kB][10]
+![original.png-95.3kB][10]  
 The next step is what's been puzzling me for a while now because the noise is sparse, clumpy, and clustered around the trajectory of the ball, making it difficult to filter out.  
 But after reconstruction, we have obtained a new perspective, which means we can observe the trajectory of the ball from any angle. So, we can view the field from above and observe the trajectory from the side. We have shifted the problem from filtering three-dimensional points to filtering two-dimensional points and use the K-nearest neighbors (KNN) algorithm to compute the distances and indices to the nearest neighbors of each point in order to remove outliers.
 **The image after KNN filtering:**
 ![look_down.png-24.1kB][11]
-![1.png-93.6kB][12]
+![1.png-93.6kB][12]  
 Now we can fit each segment of the curve.
 The next issue is the discontinuity between each fitted curve segment. So, we identify each point of impact and ground contact separately, assign them individual losses, and use `scipy.optimize.minimize` for curve fitting.
 **Bounces in image(red points):**
