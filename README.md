@@ -68,8 +68,8 @@ def loss_func(params, x, y, start_point, end_point):
 
 **The filtering can also be done using epipolar geometry:**  
 Utilize the `cv2.computeCorrespondEpilines` function to compute the epipolar lines corresponding to each point in the first set of points on the second image. Then, calculate the distance from each point in the second set of points to the corresponding epipolar line. Check if the distance of the first point in the first set to its corresponding epipolar line is less than 100. If so, return True, indicating that these two points match; otherwise, return False, indicating that they do not match. However, the effectiveness of this method may be limited.  
-**Finally, we obtain our fitted curve:**
-![last.png-65.3kB][14]
+**Finally, we obtain our fitted curve:**  
+![last.png-65.3kB][14]  
 ## **Usage**  
 ### 1. **Establish world coordinates.**  
 Enter the real-world coordinates in the world_coordinates.py file.You can arbitrarily choose the origin.
