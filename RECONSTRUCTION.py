@@ -32,14 +32,14 @@ camera_2L_K = np.asarray(camera_matrix)
 camera_matrix=np.load(r'./camera_params/2R_to_world.npy',allow_pickle=True).item()['2R']
 camera_2R_K = np.asarray(camera_matrix)
 
-def is_zero(p: np.ndarray) -> bool:
+def is_zero(p):
 
     if p[0] == 0 and p[1] == 0:
         return True
     else:
         return False
 
-def inside_range(point: np.ndarray) -> bool:
+def inside_range(point):
 
     return -1 < point[0] < 25 and -1 < point[1] < 13 and -0.1 < point[2] < 100
 
