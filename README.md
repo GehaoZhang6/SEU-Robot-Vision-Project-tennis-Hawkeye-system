@@ -23,7 +23,7 @@ So we can create a zero matrix M with a size of 3*points rows and 12+points colu
 Let's see how it turns out:
 ![svd.png-66.1kB][5]  
 This result looks much better. However, there is still an issue. Different methods of matrix normalization yield different solutions. We need to try multiple normalization techniques to achieve a better result. Even though the current image result looks fine, there are still some deviations numerically. Can we further improve it?
-- **Neural networks for solving camera matrix.** 
+- **Neural networks for solving camera matrix.**   
 We know that the purpose of training a neural network is essentially to find the weights for each parameter. Therefore, we can construct a single-layer neural network to find our least squares solution, while ensuring to deactivate the bias term during training.  
 ![court_linear_regression.png-59.9kB][6]  
 This result achieves the current best performance, with only very small numerical errors.  
