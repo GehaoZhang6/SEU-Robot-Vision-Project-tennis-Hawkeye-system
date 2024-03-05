@@ -15,7 +15,7 @@ First, we use the chessboard taken by the camera to solve the internal parameter
 ![](https://static.zybuluo.com/zgh456/scry2y8yfft3eihmwuqef5te/in.png)
 Then we use the function `cv2.solvePnP` to get the **Rotation matrix** and the **Translation vector**.But the result is not good:
 ![pnp1.png-75kB][3]
-![pnp2.png-44.7kB][4]
+![pnp2.png-44.7kB][4]  
 I wonder why this is happening. Let's delve into its underlying causes
 - **SVD decomposition for solving camera matrix.**  
 The foundation of obtaining the camera matrix lies in solving the least squares solution from three-dimensional to two-dimensional mapping.In summary, we need to obtain the matrix with 12 parameters **P**.  
@@ -24,9 +24,9 @@ Let's see how it turns out:
 ![svd.png-66.1kB][5]  
 This result looks much better. However, there is still an issue. Different methods of matrix normalization yield different solutions. We need to try multiple normalization techniques to achieve a better result. Even though the current image result looks fine, there are still some deviations numerically. Can we further improve it?
 - **Neural networks for solving camera matrix.** 
-We know that the purpose of training a neural network is essentially to find the weights for each parameter. Therefore, we can construct a single-layer neural network to find our least squares solution, while ensuring to deactivate the bias term during training.
+We know that the purpose of training a neural network is essentially to find the weights for each parameter. Therefore, we can construct a single-layer neural network to find our least squares solution, while ensuring to deactivate the bias term during training.  
 ![court_linear_regression.png-59.9kB][6]  
-This result achieves the current best performance, with only very small numerical errors.
+This result achieves the current best performance, with only very small numerical errors.  
 <span style="color:red">**We cannot simply select points on a two-dimensional plane, as the least squares solution does not impose constraints on the three direction vectors of the extrinsic parameters to be mutually orthogonal. Therefore, the points we select must ensure that they lie within a three-dimensional plane.**</span>
 
 ### 2. **Ball Tracking**  
@@ -37,7 +37,7 @@ However, due to the inevitable occurrence of mistakenly recognizing the backgrou
 ![sift.png-543kB][7]  
 **I also added a Kalman filter in the code, but did not call it because the effect was not satisfactory.**
 - **YOLO**  
-We used a model trained on 9000 images of tennis matches from the Roboflow website to detect tennis balls, and the effectiveness has significantly improved.
+We used a model trained on 9000 images of tennis matches from the Roboflow website to detect tennis balls, and the effectiveness has significantly improved.  
 ![yolo.png-265.8kB][8]  
 Due to the limited video resolution, we cannot achieve accurate recognition for every frame. Therefore, we preserve the two-dimensional point arrays containing noise points and filter them out during reconstruction.
 ### 3. **Reconstruction**  
