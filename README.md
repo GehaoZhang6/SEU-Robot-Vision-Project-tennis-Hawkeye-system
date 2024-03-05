@@ -27,7 +27,7 @@ This result looks much better. However, there is still an issue. Different metho
 We know that the purpose of training a neural network is essentially to find the weights for each parameter. Therefore, we can construct a single-layer neural network to find our least squares solution, while ensuring to deactivate the bias term during training.  
 ![court_linear_regression.png-59.9kB][6]  
 This result achieves the current best performance, with only very small numerical errors.  
-**We cannot simply select points on a two-dimensional plane, as the least squares solution does not impose constraints on the three direction vectors of the extrinsic parameters to be mutually orthogonal. Therefore, the points we select must ensure that they lie within a three-dimensional plane.**
+*We cannot simply select points on a two-dimensional plane, as the least squares solution does not impose constraints on the three direction vectors of the extrinsic parameters to be mutually orthogonal. Therefore, the points we select must ensure that they lie within a three-dimensional plane.*
 
 ### 2. **Ball Tracking**  
 - **Gaussian Mixture Background Subtractor + SIFT**  
