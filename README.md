@@ -44,11 +44,11 @@ Due to the limited video resolution, we cannot achieve accurate recognition for 
 We first need to align the time series of the videos, and then use `cv2.triangulatePoints` to calculate three-dimensional coordinates. However, due to the presence of noise points, we cannot reconstruct every point accurately, and these noise points will also affect our subsequent curve fitting. Therefore, the challenge here lies in how to remove noise points and how to fit curves accurately.  
 **Original Image:**  
 ![real.png-106.8kB][9]  
-We first use the mean and variance of each point's neighborhood to determine whether the point is an outlier.
-**Image after removing outliers:**
+We first use the mean and variance of each point's neighborhood to determine whether the point is an outlier.  
+**Image after removing outliers:**  
 ![original.png-95.3kB][10]  
 The next step is what's been puzzling me for a while now because the noise is sparse, clumpy, and clustered around the trajectory of the ball, making it difficult to filter out.  
-But after reconstruction, we have obtained a new perspective, which means we can observe the trajectory of the ball from any angle. So, we can view the field from above and observe the trajectory from the side. We have shifted the problem from filtering three-dimensional points to filtering two-dimensional points and use the K-nearest neighbors (KNN) algorithm to compute the distances and indices to the nearest neighbors of each point in order to remove outliers.
+But after reconstruction, we have obtained a new perspective, which means we can observe the trajectory of the ball from any angle. So, we can view the field from above and observe the trajectory from the side. We have shifted the problem from filtering three-dimensional points to filtering two-dimensional points and use the K-nearest neighbors (KNN) algorithm to compute the distances and indices to the nearest neighbors of each point in order to remove outliers.  
 **The image after KNN filtering:**
 ![look_down.png-24.1kB][11]
 ![1.png-93.6kB][12]  
