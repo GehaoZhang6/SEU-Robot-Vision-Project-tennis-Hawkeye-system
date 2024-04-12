@@ -13,8 +13,8 @@ Camera calibration is the foundation of 3D reconstruction. We need to obtain bot
 - **Checkerboard calibration and pnp solution to camera matrix.**  
 First, we use the chessboard taken by the camera to solve the internal parameter matrix:
 ![](https://static.zybuluo.com/zgh456/scry2y8yfft3eihmwuqef5te/in.png)
-Then we use the function `cv2.solvePnP` to get the **Rotation matrix** and the **Translation vector**.But the result is not good:
-![pnp1.png-75kB][3]
+Then we use the function `cv2.solvePnP` to get the **Rotation matrix** and the **Translation vector**.But the result is not good: 
+![pnp1.png-75kB][3] 
 ![pnp2.png-44.7kB][4]  
 I wonder why this is happening. Let's delve into its underlying causes
 - **SVD decomposition for solving camera matrix.**  
