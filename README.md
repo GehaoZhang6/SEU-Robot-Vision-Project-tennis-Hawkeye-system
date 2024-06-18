@@ -88,7 +88,7 @@ Finally, run RECONSTRUCTION.py to yield the results of the three-dimensional rec
 ![a.png-107.1kB][18]
 ## Contributors
 - [Gehao_Zhang](https://github.com/GehaoZhang6)
-- [Yanxin_Yang](https://github.com/SaraXyy)
+
 
 
 
